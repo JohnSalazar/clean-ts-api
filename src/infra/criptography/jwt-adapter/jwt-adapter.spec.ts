@@ -1,4 +1,3 @@
-import { resolve } from 'path'
 import jwt from 'jsonwebtoken'
 import { JwtAdapter } from './jwt-adapter'
 
