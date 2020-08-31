@@ -20,7 +20,7 @@
     "test:ci": "npm test -- --coverage"
   },
   "devDependencies": {
-    "@shelf/jest-mongodb": "^1.2.2",
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.17.7",
     "@types/jest": "^26.0.10",
@@ -36,7 +36,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "git-commit-msg-linter": "^2.5.2",
+    "git-commit-msg-linter": "^2.5.3",
     "husky": "^4.2.5",
     "jest": "^26.4.2",
     "lint-staged": "^10.2.13",
