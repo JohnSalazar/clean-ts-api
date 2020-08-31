@@ -1,12 +1,15 @@
 {
   "name": "clean-node-api",
   "version": "1.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "NodeJs Rest API using TDD, Clean Architecture and Typescript",
+  "author": "Rodrigo Manguinho",
+  "license": "ISC",
+  "repository": "github:JohnSalazar/clean-ts-api",
   "scripts": {
     "check": "npm-check -s -u",
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc",
+    "debug": "node --inspect=0.0.0.0:9222 --nolazy dist/main/server.js",
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
@@ -16,9 +19,6 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage"
   },
-  "keywords": [],
-  "author": "Rodrigo Manguinho",
-  "license": "ISC",
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.2",
     "@types/bcrypt": "^3.0.0",
