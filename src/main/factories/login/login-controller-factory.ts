@@ -1,6 +1,6 @@
 import env from '../../config/env'
 import { LogControllerDecorator } from '../../decorators/log-controller-decorator'
-import { makeLoginValidation } from './login-validation-factory'
+import { makeLoginValidation } from '../controllers/login/login-validation-factory'
 import { Controller } from '../../../presentation/protocols'
 import { DbAuthentication } from '../../../data/usecases/authentication/db-authentication'
 import { LoginController } from '../../../presentation/controller/login/login-controller'
