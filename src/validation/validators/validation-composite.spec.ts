@@ -1,22 +1,22 @@
 import { ValidationComposite } from './validation-composite'
-import { MissingParamError } from '../../presentation/errors'
-import { Validation } from '../../presentation/protocols'
+import { MissingParamError } from '@/presentation/errors'
+import { Validation } from '@/presentation/protocols'
 
 const makeValidation = (): Validation => {
-  class ValidationStubs implements Validation {
+  class ValidationStub implements Validation {
     validate (input: any): Error {
       return null
     }
   }
-  return new ValidationStubs()
+  return new ValidationStub()
 }
 
-interface SubTypes {
+interface SutTypes {
   sut: ValidationComposite
   validationStubs: Validation[]
 }
 
-const makeSut = (): SubTypes => {
+const makeSut = (): SutTypes => {
   const validationStubs = [
     makeValidation(),
     makeValidation()
