@@ -26,7 +26,7 @@ const makeValidation = (): Validation => {
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
     async add (data: AddSurveyModel): Promise<void> {
-      return new Promise(resolve => resolve())
+      return await new Promise(resolve => resolve())
     }
   }
   return new AddSurveyStub()
