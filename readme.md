@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/rmanguinho/clean-ts-api.svg?branch=master)](https://travis-ci.org/rmanguinho/clean-ts-api)
-[![Coverage Status](https://coveralls.io/repos/github/rmanguinho/clean-ts-api/badge.svg)](https://coveralls.io/github/rmanguinho/clean-ts-api)
+[![Build Status](https://travis-ci.com/JohnSalazar/clean-ts-api.svg?branch=master)](https://travis-ci.com/JohnSalazar/clean-ts-api)
+[![Coverage Status](https://coveralls.io/repos/github/JohnSalazar/clean-ts-api/badge.svg?branch=2.0.0)](https://coveralls.io/github/JohnSalazar/clean-ts-api?branch=2.0.0)
 
 # **Clean Node API**
 
