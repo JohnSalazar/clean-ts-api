@@ -5,8 +5,8 @@ import schemas from './schemas'
 export default {
   openapi: '3.0.0',
   info: {
-    title: 'Clean Node API',
-    description: 'API do curso do Mango para realizar enquetes entre programadores',
+    title: '4Dev - Enquetes para Programadores',
+    description: 'Essa é a documentação da API feita pelo instrutor Rodrigo Manguinho no curso da Udemy de NodeJs usando Typescript, TDD, Clean Architecture e seguindo os princípios do SOLID e Design Patterns.',
     version: '1.0.0',
     contact: {
       name: 'Rodrigo Manguinho',
