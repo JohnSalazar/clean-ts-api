@@ -1,37 +1,48 @@
-[![Build Status](https://travis-ci.com/JohnSalazar/clean-ts-api.svg?branch=master)](https://travis-ci.com/JohnSalazar/clean-ts-api)
-[![Coverage Status](https://coveralls.io/repos/github/JohnSalazar/clean-ts-api/badge.svg?branch=2.0.0)](https://coveralls.io/github/JohnSalazar/clean-ts-api?branch=2.0.0)
+[![Build Status](https://travis-ci.org/rmanguinho/clean-ts-api.svg?branch=master)](https://travis-ci.org/rmanguinho/clean-ts-api)
+[![Coverage Status](https://coveralls.io/repos/github/rmanguinho/clean-ts-api/badge.svg)](https://coveralls.io/github/rmanguinho/clean-ts-api)
+[![Known Vulnerabilities](https://snyk.io/test/github/rmanguinho/clean-ts-api/badge.svg)](https://snyk.io/test/github/rmanguinho/clean-ts-api)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 
 # **Clean Node API**
 
-[![alt text](./public/logo.png "Link para o treinamento")](https://www.udemy.com/course/tdd-com-mango/?referralCode=B53CE5CA2B9AFA5A6FA1)
+[![alt text](./public/img/logo-course.png "Link para o treinamento")](https://www.udemy.com/course/tdd-com-mango/?referralCode=B53CE5CA2B9AFA5A6FA1)
 
 ---
+
+## [**Link para o curso completo**](https://www.udemy.com/course/tdd-com-mango/?referralCode=B53CE5CA2B9AFA5A6FA1)
 
 Essa API faz parte do treinamento do professor Rodrigo Manguinho (Mango) na Udemy.
 
 O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem definida e desacoplada, utilizando TDD (programação orientada a testes) como metodologia de trabalho, Clean Architecture para fazer a distribuição de responsabilidades em camadas, sempre seguindo os princípios do SOLID e, sempre que possível, aplicando Design Patterns para resolver alguns problemas comuns.
 
-> ## APIs previstas para esse treinamento
+## [**Link para a documentação da API**](http://fordevs.herokuapp.com/api-docs)
+
+> ## APIs construídas no treinamento
 
 1. [Cadastro](./requirements/signup.md)
 2. [Login](./requirements/login.md)
 3. [Criar enquete](./requirements/add-survey.md)
-4. [Listar enquetes](./requirements/surveys.md)
-5. [Responder enquete](./requirements/answer-survey.md)
-6. [Resultado da enquete](./requirements/survey-result.md)
+4. [Listar enquetes](./requirements/load-surveys.md)
+5. [Responder enquete](./requirements/save-survey-result.md)
+6. [Resultado da enquete](./requirements/load-survey-result.md)
 
-> ## Princípios aplicados
+> ## Princípios
 
 * Single Responsibility Principle (SRP)
 * Open Closed Principle (OCP)
 * Liskov Substitution Principle (LSP)
 * Interface Segregation Principle (ISP)
 * Dependency Inversion Principle (DIP)
+* Separation of Concerns (SOC)
 * Don't Repeat Yourself (DRY)
+* You Aren't Gonna Need It (YAGNI)
+* Keep It Simple, Silly (KISS)
 * Composition Over Inheritance
 * Small Commits
 
-> ## Design Patterns aplicados
+> ## Design Patterns
 
 * Factory
 * Adapter
@@ -41,8 +52,9 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Dependency Injection
 * Abstract Server
 * Composition Root
+* Builder
 
-> ## Metodologias/designs utilizados
+> ## Metodologias e Designs
 
 * TDD
 * Clean Architecture
@@ -56,7 +68,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Continuous Delivery
 * Continuous Deployment
 
-> ## Bibliotecas e ferramentas utilizadas
+> ## Bibliotecas e Ferramentas
 
 * NPM
 * Typescript
@@ -65,9 +77,11 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Jest
 * MongoDb
 * Travis CI
-* Coveralls
+* Swagger
 * Bcrypt
 * JsonWebToken
+* Faker
+* Coveralls
 * Validator
 * Express
 * Supertest
@@ -80,21 +94,65 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Rimraf
 * In-Memory MongoDb Server
 * MockDate
+* Module-Alias
+* Copyfiles
+* Npm Check
 
-> ## Features abordadas
+> ## Features do Node
 
-* Atalhos no Git
+* Documentação de API com Swagger
 * Log de Erro
 * Segurança (Hashing, Encryption e Encoding)
 * CORS
 * Middlewares
-* Testes de Integração
+* Nível de Acesso nas Rotas (Admin, User e Anônimo)
+* Deploy no Heroku
+* SErvir Arquivos Estáticos
+
+> ## Features do Git
+
+* Alias
+* Log Personalizado
+* Branch
+* Reset
+* Amend
+* Tag
+* Stash
+* Rebase
+* Merge
+
+> ## Features do Typescript
+
+* POO Avançado
+* Interface
+* TypeAlias
+* Utility Types
+* Modularização de Paths
+* Build
+* Deploy
+* Uso de Breakpoints
+
+> ## Features de Testes
+
 * Testes Unitários
+* Testes de Integração
 * Cobertura de Testes
+* Test Doubles
 * Mocks
 * Stubs
 * Spies
-* Deploy com Typescript
-* Deploy no Heroku
-* Uso de breakpoints no Typescript
-* Uso correto de tags no Git
+* Fakes
+
+> ## Features do MongoDb
+
+* Connect e Reconnect
+* Collections
+* InsertOne e InserMany
+* Find, FindOne e FindOneAndUpdate
+* DeleteMany
+* UpdateOne
+* Aggregation (Match, Group, Unwind, Lookup, AddFields, Project, Sort)
+* ObjectId
+* Upsert e ReturnOriginal
+* Push, Divide, Multiply, ArrayElemAt, Cond, Sum
+* Filter, Map, Reduce, MergeObjects, ConcatArrays
