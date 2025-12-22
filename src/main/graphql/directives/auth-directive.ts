@@ -1,8 +1,16 @@
 import { makeAuthMiddleware } from '@/main/factories'
 
 import { getDirective, MapperKind, mapSchema } from '@graphql-tools/utils'
-import { ForbiddenError } from 'apollo-server-express'
-import { GraphQLSchema } from 'graphql'
+import { GraphQLError, GraphQLSchema } from 'graphql'
+
+class ForbiddenError extends GraphQLError {
+  constructor (message: string) {
+    super(message, {
+      extensions: { code: 'FORBIDDEN' }
+    })
+    this.name = 'ForbiddenError'
+  }
+}
 
 export const authDirectiveTransformer = (schema: GraphQLSchema): GraphQLSchema => {
   return mapSchema(schema, {

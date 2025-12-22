@@ -5,11 +5,11 @@ import { CheckSurveyByIdSpy, LoadSurveyResultSpy } from '@/tests/presentation/mo
 import { throwError } from '@/tests/domain/mocks'
 
 import MockDate from 'mockdate'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 const mockRequest = (): LoadSurveyResultController.Request => ({
-  accountId: faker.datatype.uuid(),
-  surveyId: faker.datatype.uuid()
+  accountId: faker.string.uuid(),
+  surveyId: faker.string.uuid()
 })
 
 type SutTypes = {

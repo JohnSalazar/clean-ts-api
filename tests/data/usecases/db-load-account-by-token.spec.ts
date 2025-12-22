@@ -2,7 +2,7 @@ import { DbLoadAccountByToken } from '@/data/usecases'
 import { DecrypterSpy, LoadAccountByTokenRepositorySpy } from '@/tests/data/mocks'
 import { throwError } from '@/tests/domain/mocks'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 type SutTypes = {
   sut: DbLoadAccountByToken
@@ -26,8 +26,8 @@ let role: string
 
 describe('DbLoadAccountByToken Usecase', () => {
   beforeEach(() => {
-    token = faker.datatype.uuid()
-    role = faker.random.word()
+    token = faker.string.uuid()
+    role = faker.lorem.word()
   })
 
   test('Should call Decrypter with correct ciphertext', async () => {

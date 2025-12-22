@@ -2,7 +2,7 @@ import { AccountMongoRepository, MongoHelper } from '@/infra/db'
 import { mockAddAccountParams } from '@/tests/domain/mocks'
 
 import { Collection } from 'mongodb'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 const makeSut = (): AccountMongoRepository => {
   return new AccountMongoRepository()
@@ -74,8 +74,8 @@ describe('AccountMongoRepository', () => {
       const res = await accountCollection.insertOne(mockAddAccountParams())
       const fakeAccount = await accountCollection.findOne({ _id: res.insertedId })
       expect(fakeAccount.accessToken).toBeFalsy()
-      const accessToken = faker.datatype.uuid()
-      await sut.updateAccessToken(fakeAccount._id, accessToken)
+      const accessToken = faker.string.uuid()
+      await sut.updateAccessToken(fakeAccount._id.toHexString(), accessToken)
       const account = await accountCollection.findOne({ _id: fakeAccount._id })
       expect(account).toBeTruthy()
       expect(account.accessToken).toBe(accessToken)
@@ -83,16 +83,16 @@ describe('AccountMongoRepository', () => {
   })
 
   describe('loadByToken()', () => {
-    let name = faker.name.findName()
+    let name = faker.person.fullName()
     let email = faker.internet.email()
     let password = faker.internet.password()
-    let accessToken = faker.datatype.uuid()
+    let accessToken = faker.string.uuid()
 
     beforeEach(() => {
-      name = faker.name.findName()
+      name = faker.person.fullName()
       email = faker.internet.email()
       password = faker.internet.password()
-      accessToken = faker.datatype.uuid()
+      accessToken = faker.string.uuid()
     })
 
     test('Should return an account on loadByToken without role', async () => {

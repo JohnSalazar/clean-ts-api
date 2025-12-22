@@ -5,3 +5,6 @@ coverage
 requirements
 .vscode
 .nvmrc
+*.js
+*.cjs
+*.mjs

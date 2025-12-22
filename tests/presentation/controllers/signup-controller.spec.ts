@@ -4,12 +4,12 @@ import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers'
 import { AuthenticationSpy, ValidationSpy, AddAccountSpy } from '@/tests/presentation/mocks'
 import { throwError } from '@/tests/domain/mocks'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 const mockRequest = (): SignUpController.Request => {
   const password = faker.internet.password()
   return {
-    name: faker.name.findName(),
+    name: faker.person.fullName(),
     email: faker.internet.email(),
     password,
     passwordConfirmation: password
@@ -77,7 +77,7 @@ describe('SignUp Controller', () => {
 
   test('Should return 400 if Validation returns an error', async () => {
     const { sut, validationSpy } = makeSut()
-    validationSpy.error = new MissingParamError(faker.random.word())
+    validationSpy.error = new MissingParamError(faker.lorem.word())
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(badRequest(validationSpy.error))
   })

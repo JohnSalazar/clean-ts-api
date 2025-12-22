@@ -1,44 +1,44 @@
 import { SurveyResultModel } from '@/domain/models'
 import { SaveSurveyResult } from '@/domain/usecases'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 export const mockSaveSurveyResultParams = (): SaveSurveyResult.Params => ({
-  accountId: faker.datatype.uuid(),
-  surveyId: faker.datatype.uuid(),
-  answer: faker.random.word(),
+  accountId: faker.string.uuid(),
+  surveyId: faker.string.uuid(),
+  answer: faker.lorem.word(),
   date: faker.date.recent()
 })
 
 export const mockSurveyResultModel = (): SurveyResultModel => ({
-  surveyId: faker.datatype.uuid(),
-  question: faker.random.words(),
+  surveyId: faker.string.uuid(),
+  question: faker.lorem.words(),
   answers: [{
-    answer: faker.random.word(),
-    count: faker.datatype.number({ min: 0, max: 1000 }),
-    percent: faker.datatype.number({ min: 0, max: 100 }),
+    answer: faker.lorem.word(),
+    count: faker.number.int({ min: 0, max: 1000 }),
+    percent: faker.number.int({ min: 0, max: 100 }),
     isCurrentAccountAnswer: faker.datatype.boolean()
   }, {
-    answer: faker.random.word(),
-    image: faker.image.imageUrl(),
-    count: faker.datatype.number({ min: 0, max: 1000 }),
-    percent: faker.datatype.number({ min: 0, max: 100 }),
+    answer: faker.lorem.word(),
+    image: faker.image.url(),
+    count: faker.number.int({ min: 0, max: 1000 }),
+    percent: faker.number.int({ min: 0, max: 100 }),
     isCurrentAccountAnswer: faker.datatype.boolean()
   }],
   date: faker.date.recent()
 })
 
 export const mockEmptySurveyResultModel = (): SurveyResultModel => ({
-  surveyId: faker.datatype.uuid(),
-  question: faker.random.words(),
+  surveyId: faker.string.uuid(),
+  question: faker.lorem.words(),
   answers: [{
-    answer: faker.random.word(),
+    answer: faker.lorem.word(),
     count: 0,
     percent: 0,
     isCurrentAccountAnswer: false
   }, {
-    answer: faker.random.word(),
-    image: faker.image.imageUrl(),
+    answer: faker.lorem.word(),
+    image: faker.image.url(),
     count: 0,
     percent: 0,
     isCurrentAccountAnswer: false

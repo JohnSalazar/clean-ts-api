@@ -3,37 +3,33 @@ import resolvers from '@/main/graphql/resolvers'
 import { authDirectiveTransformer } from '@/main/graphql/directives'
 
 import { makeExecutableSchema } from '@graphql-tools/schema'
-import { ApolloServer } from 'apollo-server-express'
-import { GraphQLError } from 'graphql'
+import { ApolloServer } from '@apollo/server'
+import { GraphQLError, GraphQLFormattedError } from 'graphql'
+import type { BaseContext } from '@apollo/server'
 
-const handleErrors = (response: any, errors: readonly GraphQLError[]): void => {
-  errors?.forEach(error => {
-    response.data = undefined
-    if (checkError(error, 'UserInputError')) {
-      response.http.status = 400
-    } else if (checkError(error, 'AuthenticationError')) {
-      response.http.status = 401
-    } else if (checkError(error, 'ForbiddenError')) {
-      response.http.status = 403
-    } else {
-      response.http.status = 500
-    }
-  })
+interface Context extends BaseContext {
+  req: any
 }
 
-const checkError = (error: GraphQLError, errorName: string): boolean => {
-  return [error.name, error.originalError?.name].some(name => name === errorName)
+const handleErrors = (formattedError: GraphQLFormattedError, error: Error & { originalError?: Error }): GraphQLFormattedError => {
+  const checkError = (errorName: string): boolean => {
+    return [error.name, error.originalError?.name].some(name => name === errorName)
+  }
+
+  if (checkError('UserInputError')) {
+    return { ...formattedError, extensions: { ...formattedError.extensions, code: 'BAD_USER_INPUT', http: { status: 400 } } }
+  } else if (checkError('AuthenticationError')) {
+    return { ...formattedError, extensions: { ...formattedError.extensions, code: 'UNAUTHENTICATED', http: { status: 401 } } }
+  } else if (checkError('ForbiddenError')) {
+    return { ...formattedError, extensions: { ...formattedError.extensions, code: 'FORBIDDEN', http: { status: 403 } } }
+  }
+  return { ...formattedError, extensions: { ...formattedError.extensions, code: 'INTERNAL_SERVER_ERROR', http: { status: 500 } } }
 }
 
 let schema = makeExecutableSchema({ resolvers, typeDefs })
 schema = authDirectiveTransformer(schema)
 
-export const setupApolloServer = (): ApolloServer => new ApolloServer({
+export const setupApolloServer = (): ApolloServer<Context> => new ApolloServer<Context>({
   schema,
-  context: ({ req }) => ({ req }),
-  plugins: [{
-    requestDidStart: async () => ({
-      willSendResponse: async ({ response, errors }) => handleErrors(response, errors)
-    })
-  }]
+  formatError: handleErrors
 })

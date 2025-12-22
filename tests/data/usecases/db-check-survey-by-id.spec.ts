@@ -2,7 +2,7 @@ import { DbCheckSurveyById } from '@/data/usecases'
 import { CheckSurveyByIdRepositorySpy } from '@/tests/data/mocks'
 import { throwError } from '@/tests/domain/mocks'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 type SutTypes = {
   sut: DbCheckSurveyById
@@ -22,7 +22,7 @@ let surveyId: string
 
 describe('DbLoadSurveyById', () => {
   beforeEach(() => {
-    surveyId = faker.datatype.uuid()
+    surveyId = faker.string.uuid()
   })
 
   test('Should call CheckSurveyByIdRepository', async () => {
