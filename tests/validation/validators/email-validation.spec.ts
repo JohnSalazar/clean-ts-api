@@ -3,9 +3,9 @@ import { InvalidParamError } from '@/presentation/errors'
 import { EmailValidatorSpy } from '@/tests/validation/mocks'
 import { throwError } from '@/tests/domain/mocks'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
-const field = faker.random.word()
+const field = faker.word.sample()
 
 type SutTypes = {
   sut: EmailValidation

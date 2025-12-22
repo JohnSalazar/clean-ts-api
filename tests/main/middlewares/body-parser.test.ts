@@ -7,7 +7,8 @@ let app: Express
 
 describe('Body Parser Middleware', () => {
   beforeAll(async () => {
-    app = await setupApp()
+    const setup = await setupApp()
+    app = setup.app
   })
 
   test('Should parse body as json', async () => {

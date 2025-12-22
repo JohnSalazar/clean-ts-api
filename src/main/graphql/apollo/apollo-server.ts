@@ -1,39 +1,82 @@
-import typeDefs from '@/main/graphql/type-defs'
-import resolvers from '@/main/graphql/resolvers'
-import { authDirectiveTransformer } from '@/main/graphql/directives'
+import { authDirectiveTransformer } from "@/main/graphql/directives";
+import resolvers from "@/main/graphql/resolvers";
+import typeDefs from "@/main/graphql/type-defs";
 
-import { makeExecutableSchema } from '@graphql-tools/schema'
-import { ApolloServer } from 'apollo-server-express'
-import { GraphQLError } from 'graphql'
+import { ApolloServer, ApolloServerPlugin, BaseContext } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import cors from "cors";
+import { Express, json, Request } from "express";
+import { GraphQLError, GraphQLFormattedError } from "graphql";
+import { Server } from "http";
 
-const handleErrors = (response: any, errors: readonly GraphQLError[]): void => {
-  errors?.forEach(error => {
-    response.data = undefined
-    if (checkError(error, 'UserInputError')) {
-      response.http.status = 400
-    } else if (checkError(error, 'AuthenticationError')) {
-      response.http.status = 401
-    } else if (checkError(error, 'ForbiddenError')) {
-      response.http.status = 403
-    } else {
-      response.http.status = 500
+export interface ApolloContext extends BaseContext {
+  req?: Request;
+}
+
+let schema = makeExecutableSchema({ resolvers, typeDefs });
+schema = authDirectiveTransformer(schema);
+
+const formatError = (
+  formattedError: GraphQLFormattedError,
+  error: unknown
+): GraphQLFormattedError => {
+  if (error instanceof GraphQLError) {
+    const extensions = error.extensions || {};
+    if (extensions.code === "BAD_USER_INPUT") {
+      return { ...formattedError, extensions: { ...extensions, http: { status: 400 } } };
     }
-  })
-}
+    if (extensions.code === "UNAUTHENTICATED") {
+      return { ...formattedError, extensions: { ...extensions, http: { status: 401 } } };
+    }
+    if (extensions.code === "FORBIDDEN") {
+      return { ...formattedError, extensions: { ...extensions, http: { status: 403 } } };
+    }
+  }
+  return formattedError;
+};
 
-const checkError = (error: GraphQLError, errorName: string): boolean => {
-  return [error.name, error.originalError?.name].some(name => name === errorName)
-}
+const httpStatusPlugin: ApolloServerPlugin<ApolloContext> = {
+  async requestDidStart() {
+    return {
+      async willSendResponse({ response }) {
+        const body = response.body;
+        if (!body || body.kind !== "single" || !body.singleResult.errors?.length) {
+          return;
+        }
+        const hasAccessDenied = body.singleResult.errors.some((error) => {
+          const extensions = error.extensions as { http?: { status?: number } } | undefined;
+          return extensions?.http?.status === 403 && error.message === "Access denied";
+        });
+        if (hasAccessDenied && (response.http.status == null || response.http.status === 200)) {
+          response.http.status = 403;
+        }
+      },
+    };
+  },
+};
 
-let schema = makeExecutableSchema({ resolvers, typeDefs })
-schema = authDirectiveTransformer(schema)
+export const setupApolloServer = (httpServer: Server): ApolloServer<ApolloContext> =>
+  new ApolloServer<ApolloContext>({
+    schema,
+    formatError,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer }), httpStatusPlugin],
+  });
 
-export const setupApolloServer = (): ApolloServer => new ApolloServer({
-  schema,
-  context: ({ req }) => ({ req }),
-  plugins: [{
-    requestDidStart: async () => ({
-      willSendResponse: async ({ response, errors }) => handleErrors(response, errors)
+export const applyApolloMiddleware = async (
+  app: Express,
+  httpServer: Server,
+  path: string = "/graphql"
+): Promise<void> => {
+  const server = setupApolloServer(httpServer);
+  await server.start();
+  app.use(
+    path,
+    cors<cors.CorsRequest>(),
+    json(),
+    expressMiddleware(server, {
+      context: async ({ req }): Promise<ApolloContext> => ({ req }),
     })
-  }]
-})
+  );
+};

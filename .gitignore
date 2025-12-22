@@ -1,8 +1,10 @@
-node_modules
-dist
-coverage
+.claude
+.vscode
+.husky
 data
+dist
+node_modules
+coverage
 !src/data
 !tests/data
-.vscode
 globalConfig.json

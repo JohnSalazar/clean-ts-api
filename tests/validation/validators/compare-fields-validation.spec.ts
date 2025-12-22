@@ -1,10 +1,10 @@
 import { CompareFieldsValidation } from '@/validation/validators'
 import { InvalidParamError } from '@/presentation/errors'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
-const field = faker.random.word()
-const fieldToCompare = faker.random.word()
+const field = faker.word.sample()
+const fieldToCompare = faker.word.sample()
 
 const makeSut = (): CompareFieldsValidation => {
   return new CompareFieldsValidation(field, fieldToCompare)
@@ -22,7 +22,7 @@ describe('CompareFieldsValidation', () => {
 
   test('Should not return if validation succeeds', () => {
     const sut = makeSut()
-    const value = faker.random.word()
+    const value = faker.word.sample()
     const error = sut.validate({
       [field]: value,
       [fieldToCompare]: value

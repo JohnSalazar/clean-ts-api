@@ -4,13 +4,13 @@ import { ValidationSpy, AddSurveySpy } from '@/tests/presentation/mocks'
 import { throwError } from '@/tests/domain/mocks'
 
 import MockDate from 'mockdate'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 const mockRequest = (): AddSurveyController.Request => ({
-  question: faker.random.words(),
+  question: faker.word.words(),
   answers: [{
-    image: faker.image.imageUrl(),
-    answer: faker.random.word()
+    image: faker.image.url(),
+    answer: faker.word.sample()
   }]
 })
 

@@ -11,7 +11,7 @@ export class DbLoadAccountByToken implements LoadAccountByToken {
     let token: string
     try {
       token = await this.decrypter.decrypt(accessToken)
-    } catch (error) {
+    } catch {
       return null
     }
     if (token) {

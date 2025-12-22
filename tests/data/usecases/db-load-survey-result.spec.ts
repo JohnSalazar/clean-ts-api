@@ -3,7 +3,7 @@ import { LoadSurveyResultRepositorySpy, LoadSurveyByIdRepositorySpy } from '@/te
 import { throwError } from '@/tests/domain/mocks'
 
 import MockDate from 'mockdate'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 type SutTypes = {
   sut: DbLoadSurveyResult
@@ -35,8 +35,8 @@ describe('DbLoadSurveyResult UseCase', () => {
   })
 
   beforeEach(() => {
-    surveyId = faker.datatype.uuid()
-    accountId = faker.datatype.uuid()
+    surveyId = faker.string.uuid()
+    accountId = faker.string.uuid()
   })
 
   test('Should call LoadSurveyResultRepository with correct values', async () => {

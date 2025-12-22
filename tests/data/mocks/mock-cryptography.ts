@@ -1,9 +1,9 @@
 import { Hasher, HashComparer, Encrypter, Decrypter } from '@/data/protocols'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 export class HasherSpy implements Hasher {
-  digest = faker.datatype.uuid()
+  digest = faker.string.uuid()
   plaintext: string
 
   async hash (plaintext: string): Promise<string> {
@@ -25,7 +25,7 @@ export class HashComparerSpy implements HashComparer {
 }
 
 export class EncrypterSpy implements Encrypter {
-  ciphertext = faker.datatype.uuid()
+  ciphertext = faker.string.uuid()
   plaintext: string
 
   async encrypt (plaintext: string): Promise<string> {

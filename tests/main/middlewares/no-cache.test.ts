@@ -8,7 +8,8 @@ let app: Express
 
 describe('NoCache Middleware', () => {
   beforeAll(async () => {
-    app = await setupApp()
+    const setup = await setupApp()
+    app = setup.app
   })
 
   test('Should disable cache', async () => {

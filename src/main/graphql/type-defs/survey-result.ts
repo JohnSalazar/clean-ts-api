@@ -1,12 +1,12 @@
-import { gql } from 'apollo-server-express'
+import gql from "graphql-tag";
 
 export default gql`
   extend type Query {
-    surveyResult (surveyId: String!): SurveyResult! @auth
+    surveyResult(surveyId: String!): SurveyResult! @auth
   }
 
   extend type Mutation {
-    saveSurveyResult (surveyId: String!, answer: String!): SurveyResult! @auth
+    saveSurveyResult(surveyId: String!, answer: String!): SurveyResult! @auth
   }
 
   type SurveyResult {
@@ -23,4 +23,4 @@ export default gql`
     percent: Int!
     isCurrentAccountAnswer: Boolean!
   }
-`
+`;

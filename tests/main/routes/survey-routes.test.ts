@@ -32,7 +32,8 @@ const mockAccessToken = async (): Promise<string> => {
 
 describe('Survey Routes', () => {
   beforeAll(async () => {
-    app = await setupApp()
+    const setup = await setupApp()
+    app = setup.app
     await MongoHelper.connect(process.env.MONGO_URL)
   })
 

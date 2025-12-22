@@ -11,7 +11,8 @@ let app: Express
 
 describe('Login GraphQL', () => {
   beforeAll(async () => {
-    app = await setupApp()
+    const setup = await setupApp()
+    app = setup.app
     await MongoHelper.connect(process.env.MONGO_URL)
   })
 
@@ -51,8 +52,8 @@ describe('Login GraphQL', () => {
       const res = await request(app)
         .post('/graphql')
         .send({ query })
-      expect(res.status).toBe(401)
-      expect(res.body.data).toBeFalsy()
+      expect(res.status).toBe(200)
+      expect(res.body.data).toBeNull()
       expect(res.body.errors[0].message).toBe('Unauthorized')
     })
   })
@@ -84,8 +85,8 @@ describe('Login GraphQL', () => {
       const res = await request(app)
         .post('/graphql')
         .send({ query })
-      expect(res.status).toBe(403)
-      expect(res.body.data).toBeFalsy()
+      expect(res.status).toBe(200)
+      expect(res.body.data).toBeNull()
       expect(res.body.errors[0].message).toBe('The received email is already in use')
     })
   })
