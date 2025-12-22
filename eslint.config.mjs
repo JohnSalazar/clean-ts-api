@@ -5,14 +5,12 @@ import globals from 'globals'
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
+  ...tseslint.configs.disableTypeChecked,
   {
     languageOptions: {
       globals: {
         ...globals.node,
         ...globals.jest
-      },
-      parserOptions: {
-        project: './tsconfig.json'
       }
     },
     rules: {
@@ -35,9 +33,9 @@ export default tseslint.config(
       'data/**',
       'requirements/**',
       '.vscode/**',
-      '*.js',
-      '*.cjs',
-      '*.mjs'
+      '**/*.js',
+      '**/*.cjs',
+      '**/*.mjs'
     ]
   }
 )
